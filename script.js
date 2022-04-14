@@ -1,32 +1,50 @@
-// fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=02c241e5f5c19e653240d087fd657644')
-//     .then(function (resp) { return resp.json() } )
-//     .then(function (data) {
-//         console.log(data);
-//         document.querySelector('.city-info__title').innerHTML = Math.round(data.main.temp - 273) + '&deg;';
-//         document.querySelector('.city-title').innerHTML = data.name;
-//         document.querySelector('.city-info__subtitlesunrise').innerHTML = (new Date(data.sys.sunrise)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' PM';
-//         document.querySelector('.city-info__subtitlesunset').innerHTML = (new Date(data.sys.sunset)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' AM';
-//         document.querySelector('.description').textContent = data.weather[0] ['description'];
-//         document.querySelector('.humidity1').innerHTML = data.main.humidity + '%';
-//         document.querySelector('.pressure2').innerHTML = (data.main.pressure / 1000) + ' mBar';
-//         document.querySelector('.windespeed3').innerHTML = Math.floor(data.wind.speed * 1.6093) + 'km/h';
-//         //document.querySelector('.icon').innerHTML = '<img src = "http://openweathermap.org/img/wn/' + data.weather[0]['icon'] + '@2x.png">';
-//     })
-//     .catch(function () {
+fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=02c241e5f5c19e653240d087fd657644')
+    .then(function (resp) { return resp.json() } )
+    .then(function (data) {
+        console.log(data);
+        document.querySelector('.city-info__title').innerHTML = Math.round(data.main.temp - 273) + '&deg;';
+        document.querySelector('.city-title').innerHTML = data.name;
+        document.querySelector('.city-info__subtitlesunrise').innerHTML = (new Date(data.sys.sunrise)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' PM';
+        document.querySelector('.city-info__subtitlesunset').innerHTML = (new Date(data.sys.sunset)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' AM';
+        document.querySelector('.description').textContent = data.weather[0] ['description'];
+        document.querySelector('.humidity1').innerHTML = data.main.humidity + '%';
+        document.querySelector('.pressure2').innerHTML = (data.main.pressure / 1000) + ' mBar';
+        document.querySelector('.windespeed3').innerHTML = Math.floor(data.wind.speed * 1.6093) + 'km/h';
+        //document.querySelector('.icon').innerHTML = '<img src = "http://openweathermap.org/img/wn/' + data.weather[0]['icon'] + '@2x.png">';
+    })
+    .catch(function () {
 
-//     });
+    });
 
-// fetch('https://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid=02c241e5f5c19e653240d087fd657644')
-//     .then(function (resp1) { return resp1.json() } )
-//     .then(function (data1) {
-//       console.log(data1);
-//       document.querySelector('.hour1').textContent = data.current.temp;
-//       // document.querySelector('.hour1').textContent = (new Date(data.dt)).toLocaleTimeString([], {hour: '2-digit'}) + ' AM'+ '\r\n'+ (Math.round(data.main.temp - 273) + "°");
-//       // document.querySelector('.hour2').textContent = (new Date(data.dt)).toLocaleTimeString([], {hour: '2-digit'}) + ' AM'+ '\r\n'+ (Math.round(data.main.temp - 273) + "°");
-//     })
-//     .catch(function () {
+fetch('https://api.openweathermap.org/data/2.5/forecast?lat=51.51958660936145&lon=-0.13662368334883396&appid=02c241e5f5c19e653240d087fd657644')
+    .then(function (resp1) { return resp1.json() } )
+    .then(function (data1) {
+      console.log(data1);
+      document.querySelector('.hour11').innerHTML = (new Date(data1.list[0].dt_txt)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) 
+      + `<img src = "http://openweathermap.org/img/wn/${data1.list[0].weather[0]['icon']}@2x.png">`
+      + Math.round(data1.list[0].main.temp - 273) + '&deg;';
+      document.querySelector('.hour22').innerHTML = (new Date(data1.list[1].dt_txt)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) 
+      + `<img src = "http://openweathermap.org/img/wn/${data1.list[1].weather[0]['icon']}@2x.png">`
+      + Math.round(data1.list[1].main.temp - 273) + '&deg;';
+      document.querySelector('.hour33').innerHTML = (new Date(data1.list[2].dt_txt)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) 
+      + `<img src = "http://openweathermap.org/img/wn/${data1.list[2].weather[0]['icon']}@2x.png">`
+      + Math.round(data1.list[2].main.temp - 273) + '&deg;';
+      document.querySelector('.hour44').innerHTML = (new Date(data1.list[3].dt_txt)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) 
+      + `<img src = "http://openweathermap.org/img/wn/${data1.list[3].weather[0]['icon']}@2x.png">`
+      + Math.round(data1.list[3].main.temp - 273) + '&deg;';
+      document.querySelector('.days1').innerHTML = (new Date(data1.list[7].dt_txt)).toLocaleDateString([], {day: '2-digit', month:'2-digit'}) + '<br/>'
+      + (new Date(data1.list[15].dt_txt)).toLocaleDateString([], {day: '2-digit', month:'2-digit'}) + '<br/>'
+      + (new Date(data1.list[23].dt_txt)).toLocaleDateString([], {day: '2-digit', month:'2-digit'});
+      document.querySelector('.icones1').innerHTML = `<img src = "http://openweathermap.org/img/wn/${data1.list[7].weather[0]['icon']}@2x.png">`
+      + `<img src = "http://openweathermap.org/img/wn/${data1.list[15].weather[0]['icon']}@2x.png">`
+      + `<img src = "http://openweathermap.org/img/wn/${data1.list[23].weather[0]['icon']}@2x.png">`;
+      document.querySelector('.daytemp1').innerHTML = Math.round(data1.list[7].main.temp - 273) + '&deg;<br/>' + Math.round(data1.list[15].main.temp - 273) + '&deg;<br/>' + Math.round(data1.list[23].main.temp - 273) + '&deg;';
+      document.querySelector('.nighttemp1').innerHTML = Math.round(data1.list[3].main.temp - 273) + '&deg;<br/>' + Math.round(data1.list[11].main.temp - 273) + '&deg;<br/>' + Math.round(data1.list[19].main.temp - 273) + '&deg;';
+    })
+    
+    .catch(function () {
 
-//     });
+    });
 
 
 

@@ -96,7 +96,6 @@ body {
   #Weatherweek {
     position: fixed;
     display: flex;
-    flex-direction: row;
     height: 100px;
     width: 100%;
     transform: translate(0px, 180px);
@@ -198,7 +197,7 @@ body {
     width: 100%;
   }
   /*Всплывающее окно выбора города*/
-  .popup {
+  .popupfavorite {
     position: fixed;
     left: 0;
     top: 0;
@@ -214,7 +213,7 @@ body {
     z-index: 9;
   }
   /*Выдвижение всплывающего окна выбора города*/
-  .popup.active {
+  .popupfavorite.active {
     transform: translateX(0);
   }
   /*Закрытие всплывающего окна выбора города*/
@@ -227,7 +226,7 @@ body {
     height: 22px;
   }
   /*Значек закрытие всплывающего окна выбора города*/
-  .popup-close span {
+  .popupfavorite-close span {
     display: block;
     margin-top: 10px;
     width: 22px;
@@ -237,7 +236,7 @@ body {
     position: relative;
   }
   /*Значек закрытие всплывающего окна выбора города*/
-  .popup-close span:after {
+  .popupfavorite-close span:after {
     content: "";
     display: block;
     width: 22px;
@@ -248,12 +247,15 @@ body {
     top: 0;
     left: 0;
   }
+  .popupfavorite-close {
+    transform: translate(-15px, -255px);
+  }
   /* Иконка лупы */
   #searchicone {
     position: fixed;
     width: 33px;
     top: 53px;
-    left: 5px;
+    left: 17px;
   }
   /* Общее окно избраных городов*/
   #favoritecity {
@@ -295,7 +297,7 @@ body {
     font-size: 15px;
     width: 70%;
     padding: 5px;
-    transform: translate(17px, -23px);
+    transform: translate(30px, -23px);
   }
   /*Контейнер выбора города, кнопка ок*/
   .form-submit {
@@ -306,11 +308,184 @@ body {
     border: none;
     border-radius: 8px;
     outline: none;
-    transform: translate(0px, -20px);
+    transform: translate(16px, -22px);
   }
   /*Контейнер выбора города, первоначальный текст внутри*/
   .form-input::placeholder {
     color: rgba(255, 255, 255, 0.493);
+  }
+/* ////////////////////////////////////////////////////////////////////////////////////// */
+  .popupactual {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    transform: translateX(200%);
+    background: #0c2735; 
+    border-radius: 4px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
+    z-index: 9;
+  }
+  /*Выдвижение всплывающего окна выбора города*/
+  .popupactual.active {
+    transform: translateX(0);
+  }
+  /*Закрытие всплывающего окна выбора города*/
+  .popup-close {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+  }
+  /*Значек закрытие всплывающего окна выбора города*/
+  .popupactual-close span {
+    display: block;
+    margin-top: 10px;
+    width: 22px;
+    height: 2px;
+    background: #2c5470;
+    transform: rotate(45deg);
+    position: relative;
+  }
+  /*Значек закрытие всплывающего окна выбора города*/
+  .popupactual-close span:after {
+    content: "";
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #2c5470;
+    transform: rotate(-90deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .popupactual-close {
+    transform: translate(120px, -255px);
+  }
+  #navigationicone {
+    position: fixed;
+    max-width: 16px;
+    transform: translate(-69px, -245px);
+  }
+  #YourLocationNow {
+    position: fixed;
+    font-size: 13px;
+    color: #6a7984;
+    transform: translate(0px, -245px);
+  }
+  .Locationname1 {
+    position: fixed;
+    font-size: 18px;
+    color: #ffffff;
+    width: max-content;
+    transform: translate(0px, -220px);
+  }
+  .Locationweathericone1 {
+    position: fixed;
+    transform: translate(15px, -150px);
+  }
+  .Locationweathericone1 img {
+    width: 200px;
+  }
+  .Locationweatherdescription {
+    position: fixed;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 30px;
+    color: #ffffff;
+    transform: translate(-5px, -85px);
+    background: #323061;
+    border-radius: 20px;
+    text-align: center;
+    height: 30px;
+    width: 100px;
+  }
+  .Locationtemp {
+    font-size: 60px;
+    line-height: 65px;
+    color: #ffffff;
+    transform: translate(0px, -25px);
+    position: fixed;
+  }
+  #Locationmidlepanel {
+    position: fixed;
+    background: rgba(0, 0, 0, 0);
+    width: 300px;
+    height: 50px;
+    transform: translate(20px, 20px);
+  }
+  #Locationmidlepanel > * {
+    margin-right: 45px;
+  }
+  .lwindespeed3 {
+    position: fixed;
+    width: 30px;
+    font-size: 12px;
+    color: #ffffff;
+    transform: translate(45px, -5px);
+  }
+  #lwindespeed3 {
+    width: 25px;
+    height: 25px;
+    transform: translate(15px, 15px);
+  }
+  .lhumidity1 {
+    position: fixed;
+    width: 30px;
+    font-size: 12px;
+    color: #ffffff;
+    transform: translate(120px, -5px);
+  }
+  #lhumidity1 {
+    width: 30px;
+    height: 30px;
+    transform: translate(15px, 18px);
+  }
+  .lpressure2 {
+    position: fixed;
+    width: 65px;
+    font-size: 12px;
+    color: #ffffff;
+    transform: translate(190px, -5px);
+  }
+  #lpressure2{
+    width: 20px;
+    height: 20px;
+    transform: translate(10px, 13px);
+  }
+  #Settingspanel {
+    position: fixed;
+    display: flex;
+    width: 280px;
+    height: 100px;
+    transform: translate(5px, 115px);
+  }
+  .Settingsname {
+    width: 80px;
+    font-size: 13px;
+    text-align: left;
+    line-height: 300%;
+    color: #ffffff;
+  }
+  .Settingschoose {
+    margin-left: 10px;
+    width: 150px;
+    font-size: 11px;
+    text-align: right;
+    line-height: 350%;
+    color: #2c5470;
+  }
+  #arrow {
+    width: 10px;
+    line-height: 240%;
+    text-align: right;
+    margin-left: 10px;
   }
   /*Экран загрузки*/
   .loader {
@@ -453,5 +628,4 @@ body {
     color: #ffffff;
     margin-top: 3px;
   }
-  /*Подробное описание погоды*/
   

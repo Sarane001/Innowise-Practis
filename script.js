@@ -10,6 +10,13 @@ fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=02c241e5f5
         document.querySelector('.humidity1').innerHTML = data.main.humidity + '%';
         document.querySelector('.pressure2').innerHTML = (data.main.pressure / 1000) + ' mBar';
         document.querySelector('.windespeed3').innerHTML = Math.floor(data.wind.speed * 1.6093) + 'km/h';
+        document.querySelector('.Locationname1').innerHTML = data.name + ', ' + data.sys.country;
+        document.querySelector('.Locationweathericone1').innerHTML = `<img src = "http://openweathermap.org/img/wn/${data.weather[0]['icon']}@2x.png">`;
+        document.querySelector('.Locationweatherdescription').innerHTML = data.weather[0].main;
+        document.querySelector('.Locationtemp').innerHTML = Math.round(data.main.temp - 273) + '&deg;C';
+        document.querySelector('.lwindespeed3').innerHTML = Math.floor(data.wind.speed * 1.6093) + 'km/h';
+        document.querySelector('.lhumidity1').innerHTML = data.main.humidity + '%';
+        document.querySelector('.lpressure2').innerHTML = (data.main.pressure / 1000) + ' mBar';
         //document.querySelector('.icon').innerHTML = '<img src = "http://openweathermap.org/img/wn/' + data.weather[0]['icon'] + '@2x.png">';
     })
     .catch(function () {
@@ -62,10 +69,14 @@ fetch('https://api.openweathermap.org/data/2.5/forecast?lat=51.51958660936145&lo
 const link = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=02c241e5f5c19e653240d087fd657644";
 
     const root = document.getElementById('root');
-    const popup = document.getElementById('popup');
+    const popupfavorite = document.getElementById('popupfavorite');
     const textInput = document.getElementById('text-input');
     const form = document.getElementById('form');
-    const popupClose = document.getElementById('close');
+    const popupfavoriteClose = document.getElementById('closefavorite');
+    const popupactual = document.getElementById('popupactual');
+    const popupactualClose = document.getElementById('closeactual');
+
+    
 
     const store = {
         name: "London",
@@ -207,19 +218,19 @@ const markup = () => {
             </div>`;
 };
 
-const togglePopupClass = () => {
-    popup.classList.toggle("active");
+const togglePopupfavoriteClass = () => {
+  popupfavorite.classList.toggle("active");
   };
 
 const renderComponent = () => {
     root.innerHTML = markup();
 
-popupClose.addEventListener('click', () => {     // Закрытие выбора города (баг если много кликать иногда не закрывает???)
-    popup.classList.toggle("active");
+popupfavoriteClose.addEventListener('click', () => {     
+  popupfavorite.classList.toggle("active");
 });
 
 const name = document.getElementById("favoriteicone");
-name.addEventListener("click", togglePopupClass);
+name.addEventListener("click", togglePopupfavoriteClass);
 };
 
 const handleInput = (e) => {
@@ -237,7 +248,22 @@ const handleSubmit = (e) => {
 
     localStorage.setItem('query', value);
     fetchData();
-    togglePopupClass();
+    togglePopupfavoriteClass();
+};
+
+const togglePopupactualClass = () => {
+  popupactual.classList.toggle("active");
+  };
+
+const renderComponent1 = () => {
+    root.innerHTML = markup();
+
+popupactualClose.addEventListener('click', () => {     
+  popupactual.classList.toggle("active");
+});
+
+const name1 = document.getElementById("linesicone");
+name1.addEventListener("click", togglePopupactualClass);
 };
 
 form.addEventListener('submit', handleSubmit);
@@ -246,3 +272,4 @@ textInput.addEventListener('input', handleInput);
 
 fetchData();
 renderComponent();
+renderComponent1();

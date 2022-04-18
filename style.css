@@ -1,16 +1,24 @@
-/* Задний фон, тело*/
-body {
+  body {
     background: #6b4383;
     font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
   }
-/*Картинка текущего состояния погоды (самая большая)*/
+
   img {
     max-width: 80%;
     height: auto;
   }
-/* Средняя панель*/
+  #addfavorite {
+    width: 20px;
+    height: 20px;
+    position: fixed;
+    transform: translate(110px, -160px);
+    background: url(./img/addfavorite.png) no-repeat center/cover;
+  }
+  #addfavorite.active{
+    background: url(./img/addfavoriteactive.png) no-repeat center/cover;
+  }
   #midlepanel {
   justify-content: space-between;
   position: fixed;
@@ -132,7 +140,7 @@ body {
     transform: translate(-10px, 0px);
     font-size: 14px;
   }
-/* Нижняя панель*/
+
   #lowerpanel {
    justify-content: space-between;
    background: rgba(0, 0, 0, 0);
@@ -145,31 +153,31 @@ body {
  #lowerpanel > * {
    margin-right: 35px;
  }
- /*Значек дома*/
+
   #homeicone {
     min-height: 25px;
     width: 25px;
     border-radius: 5px;
   }
-  /*Значек карты*/
+
   #mapicone {
     min-height: 25px;
     width: 25px;
     border-radius: 5px;
   }
-   /*Значек избранного*/
+
    #favoriteicone {
     min-height: 25px;
     width: 25px;
     border-radius: 5px;
   }
-   /*Значек линий*/
+
    #linesicone {
     min-height: 25px;
     width: 25px;
     border-radius: 5px;
   }
-  /* Анимация нижних иконок*/
+
   .lowericone:hover{
     animation: chooseicone;
     animation-duration: 1s;
@@ -179,7 +187,7 @@ body {
       background: rgba(250, 248, 250, 0.295);
     }
   }
-/*Глаынй экран, его тело*/  
+
   #app {
     position: fixed;
     left: 50%;
@@ -191,12 +199,12 @@ body {
     overflow: hidden;
     min-height: 560px;
   }
-  /*Основная инфа по погоде, её расположение*/
+
   #root {
     height: 100%;
     width: 100%;
   }
-  /*Всплывающее окно выбора города*/
+
   .popupfavorite {
     position: fixed;
     left: 0;
@@ -212,11 +220,11 @@ body {
     transition: transform 0.3s ease-in-out;
     z-index: 9;
   }
-  /*Выдвижение всплывающего окна выбора города*/
+
   .popupfavorite.active {
     transform: translateX(0);
   }
-  /*Закрытие всплывающего окна выбора города*/
+
   .popup-close {
     position: absolute;
     top: 20px;
@@ -225,7 +233,7 @@ body {
     width: 22px;
     height: 22px;
   }
-  /*Значек закрытие всплывающего окна выбора города*/
+
   .popupfavorite-close span {
     display: block;
     margin-top: 10px;
@@ -235,7 +243,7 @@ body {
     transform: rotate(45deg);
     position: relative;
   }
-  /*Значек закрытие всплывающего окна выбора города*/
+
   .popupfavorite-close span:after {
     content: "";
     display: block;
@@ -250,44 +258,51 @@ body {
   .popupfavorite-close {
     transform: translate(-15px, -255px);
   }
-  /* Иконка лупы */
+
   #searchicone {
     position: fixed;
     width: 33px;
     top: 53px;
     left: 17px;
   }
-  /* Общее окно избраных городов*/
+
   #favoritecity {
     position: fixed;
     width: 290px;
     height: 400px;
-    transform: translate(0, 35px);
+    transform: translate(0, 20px);
     border-radius: 10px;
     background: rgba(0, 0, 0, 0.034);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
   }
-  /*Класс избраных городов*/
+
   .containerfavoritecity {
     width: 125px;
     height: 125px;
     border-radius: 20px;
     background: #0c2735;
+    font-size: 11px;
+    text-align: center;
+    color: #ffffff;
   }
-  /*Контейнер выбора города, размеры*/
+
+  .containerfavoritecity img {
+    width: 30%;
+  }
+
   .form {
     width: 100%;
     transform: translate(0, -190px);
   }
-  /*Контейнер выбора города, кнопка ок*/
+
   .form-group {
     display: flex;
     padding: 0 15px;
     justify-content: space-between;
   }
-  /*Контейнер выбора города, ввод текста*/
+
   .form-input {
     border: none;
     border-bottom: 2px solid #0c2735;
@@ -299,7 +314,7 @@ body {
     padding: 5px;
     transform: translate(30px, -23px);
   }
-  /*Контейнер выбора города, кнопка ок*/
+
   .form-submit {
     background: rgba(0, 0, 0, 0.452);
     color: #74838d;
@@ -310,11 +325,11 @@ body {
     outline: none;
     transform: translate(16px, -22px);
   }
-  /*Контейнер выбора города, первоначальный текст внутри*/
+
   .form-input::placeholder {
     color: rgba(255, 255, 255, 0.493);
   }
-/* ////////////////////////////////////////////////////////////////////////////////////// */
+
   .popupactual {
     position: fixed;
     left: 0;
@@ -330,11 +345,11 @@ body {
     transition: transform 0.3s ease-in-out;
     z-index: 9;
   }
-  /*Выдвижение всплывающего окна выбора города*/
+
   .popupactual.active {
     transform: translateX(0);
   }
-  /*Закрытие всплывающего окна выбора города*/
+
   .popup-close {
     position: absolute;
     top: 20px;
@@ -343,7 +358,7 @@ body {
     width: 22px;
     height: 22px;
   }
-  /*Значек закрытие всплывающего окна выбора города*/
+
   .popupactual-close span {
     display: block;
     margin-top: 10px;
@@ -353,7 +368,7 @@ body {
     transform: rotate(45deg);
     position: relative;
   }
-  /*Значек закрытие всплывающего окна выбора города*/
+
   .popupactual-close span:after {
     content: "";
     display: block;
@@ -487,7 +502,7 @@ body {
     text-align: right;
     margin-left: 10px;
   }
-  /*Экран загрузки*/
+
   .loader {
     width: 100%;
     display: flex;
@@ -497,9 +512,17 @@ body {
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  #loaderback {
+    position: absolute;
+    display: block;
+    width: 300px;
+    height: 560px;
+    background: black;
     z-index: 1;
   }
-  /*Фоновая картинка главного экрана*/
+
   .container:before {
     content: "";
     display: block;
@@ -511,32 +534,32 @@ body {
     left: 0;
     z-index: 0;
   }
-  /*Фоновая картинка главного экрана, смена дня и ночи*/
+
   .container.is-day::before {
     background: url(./img/figure2.jpg) no-repeat center/cover;
   }
-  /*Позиция всего относительно верха*/
+
   .top {
     position: relative;
     padding: 18px;
   }
-  /*Позиция информации о погоде в городе*/
+
   .city-info {
     display: flex;
     justify-content: space-between;
   }
-  /*Город на главном экране, размер?*/
+
   .city {
     width: max-content;
   }
-  /*Текст "Погода сегодня в"*/
+
   .city-subtitle { 
     font-size: 12px;
     line-height: 13px;
     color: #2c5470;
     transform: translate(-8px, 4px);
   }
-  /*Название города на главном экране*/
+
   .city-title {
     border-radius: 8px;
     font-size: 25px;
@@ -546,14 +569,15 @@ body {
     margin-top: 2px;
     cursor: pointer;
     width: max-content;
-    transform: translate(-6px, 10px)
+    transform: translate(-6px, 10px);
+    text-align: center;
   }
-  /*Сдвиг всей инфа о городе относительно верха*/
+
   .city-info {
     margin-top: 28px;
   }
 
-  /*Градусы и их положение*/
+
   .city-info__title {
     font-size: 43px;
     line-height: 65px;
@@ -561,6 +585,7 @@ body {
     transform: translate(-253px, -23px);
     position: fixed;
   }
+
   .city-info__subtitlesunset {
     font-size: 11px;
     line-height: 15px;
@@ -574,11 +599,11 @@ body {
     font-size: 11px;
     line-height: 15px;
     color: #ffffff;
-    transform: translate(-242px, 157px);
+    transform: translate(-240px, 157px);
     position: fixed;
     width: 50px;
   }
-  /*Главное описание актуальной погоды*/
+
   .description {
     font-weight: 500;
     font-size: 14px;
@@ -591,35 +616,31 @@ body {
     height: 30px;
     width: 100px;
   }
-  /*Сдвиг времени*/
-  .top-right {
-    text-align: right;
-  }
-  /*Размер главной иконки актуальной погоды*/
+
   .icon {
     width: 68px;
     height: 68px;
     transform: translate(100px, 30px);
   }
-  /*Подробное описание погоды*/
+
   .property {
     width: 50%;
     display: flex;
     align-items: center;
   }
-  /*Подробное описание погоды, иконки*/
+
   .property-icon {
     width: 30px;
     margin-right: 6px;
   }
-  /*Подробное описание погоды, текст*/
+
   .property-info__value {
     font-weight: 700;
     font-size: 16px;
     line-height: 18px;
     color: #fdfdfd;
   }
-  /*Подробное описание погоды, описание текста*/
+
   .property-info__description {
     font-weight: 300;
     font-size: 12px;

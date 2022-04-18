@@ -1,4 +1,9 @@
-fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=02c241e5f5c19e653240d087fd657644')
+const apilink = 'https://api.openweathermap.org/data/2.5/weather?appid=02c241e5f5c19e653240d087fd657644&';
+const apilinkweek = "https://api.openweathermap.org/data/2.5/forecast?appid=02c241e5f5c19e653240d087fd657644&";
+
+const weatherRequest = async(city) => {
+  
+  const link = await fetch(`${apilink}q=${city}`)
     .then(function (resp) { return resp.json() } )
     .then(function (data) {
         console.log(data);
@@ -17,13 +22,68 @@ fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=02c241e5f5
         document.querySelector('.lwindespeed3').innerHTML = Math.floor(data.wind.speed * 1.6093) + 'km/h';
         document.querySelector('.lhumidity1').innerHTML = data.main.humidity + '%';
         document.querySelector('.lpressure2').innerHTML = (data.main.pressure / 1000) + ' mBar';
-        //document.querySelector('.icon').innerHTML = '<img src = "http://openweathermap.org/img/wn/' + data.weather[0]['icon'] + '@2x.png">';
+
+        store = {...store, name:data.name, 
+          temp:Math.round(data.main.temp - 273), 
+          sunset:new Date(data.sys.sunset).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' AM', 
+          sunrise:new Date(data.sys.sunrise).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) + ' PM',};
+        console.log(store);
+
+        ///////////////////////////////////////////////////////////////////////////////
+        const favoritecityList = [];
+
+        // сохранине городов в локал
+        // if (localStorage.getItem('favoritecity1') !== undefined) {
+        //   favoritecityList = JSON.parse(localStorage.getItem('favoritecity1'));
+        //   outfavoritecity();
+        //   console.log(favoritecityList);
+        // };
+
+        addfavorite.onclick = function() {
+          addfavorite.classList.toggle('active');
+          
+          const city1 = {};
+          const name = data.name;
+          const temp = Math.round(data.main.temp - 273) + '&deg;';
+          const locationweathericone = `<img src = "http://openweathermap.org/img/wn/${data.weather[0]['icon']}@2x.png">`;
+          const country = data.sys.country;
+          const humidity = data.main.humidity + '%';
+          const windespeed = Math.floor(data.wind.speed * 1.6093) + 'km/h';
+          city1.favorite = temp + '   ' + locationweathericone + '<br/>' + name + '<br/>' + country + '<br/>' + `<img src="./img/humidity1.png">` + humidity + `<img src="./img/windespeed3.png">` + windespeed;
+          const i = favoritecity.length;
+          favoritecityList[i] = city1;
+          console.log(favoritecity);
+          outfavoritecity();
+          localStorage.setItem('favoritecity1', JSON.stringify(city1.favorite));
+        };
+
+        // авто создангие контейнеров?
+        // const markup1 = () => {
+        //   const {city1} = store;
+        //   const favoritecityclass = city1;
+        //   return `<div class="containerfavoritecity"
+        //                 <div id="favoritecity1"
+        //           </div>`;
+        // };
+
+        function outfavoritecity() {
+          let outfavoritecity = '';
+          for (const key in favoritecityList) {
+            outfavoritecity += favoritecityList[key].favorite;
+          }
+          document.getElementById('favoritecity1').innerHTML = outfavoritecity;
+        }
+        return data 
+        ///////////////////////////////////////////////////////////////////////////////
     })
     .catch(function () {
 
     });
+    console.log(link);
 
-fetch('https://api.openweathermap.org/data/2.5/forecast?lat=51.51958660936145&lon=-0.13662368334883396&appid=02c241e5f5c19e653240d087fd657644')
+    const {lat,lon} = link.coord;
+
+    const link2 = fetch(`${apilinkweek}lat=${lat}&lon=${lon}`)
     .then(function (resp1) { return resp1.json() } )
     .then(function (data1) {
       console.log(data1);
@@ -49,25 +109,12 @@ fetch('https://api.openweathermap.org/data/2.5/forecast?lat=51.51958660936145&lo
       document.querySelector('.nighttemp1').innerHTML = Math.round(data1.list[3].main.temp - 273) + '&deg;<br/>' + Math.round(data1.list[11].main.temp - 273) + '&deg;<br/>' + Math.round(data1.list[19].main.temp - 273) + '&deg;';
     })
     
-    .catch(function () {
+    .catch(function (data1) {
 
     });
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-const link = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=02c241e5f5c19e653240d087fd657644";
-
+    //const link = "'https://api.openweathermap.org/data/2.5/weather?q=Minsk&appid=02c241e5f5c19e653240d087fd657644'";
     const root = document.getElementById('root');
     const popupfavorite = document.getElementById('popupfavorite');
     const textInput = document.getElementById('text-input');
@@ -75,125 +122,46 @@ const link = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=02c
     const popupfavoriteClose = document.getElementById('closefavorite');
     const popupactual = document.getElementById('popupactual');
     const popupactualClose = document.getElementById('closeactual');
-
     
-
-    const store = {
-        name: "London",
-        // temp: 0,
-        main: {
-          temp: 280.32,
-          "pressure": 1012,
-          "humidity": 81,
-          "temp_min": 279.15,
-          "temp_max": 281.15
-        },
-        dt: "00:00 AM",
-        sunset: "06:00 PM",
-        sunrise: "07:00 AM",
-        isDay: "no",
+    let store = {
         description: "partly cloudy",
-        properties: {
-            all: {},
-            humidity: {},
-            speed: {},
-            visibility: {},
-            pressure: {},
-        },
+
     };
 
-const fetchData = async () => {
-    try {
-        const query = localStorage.getItem('query') || store.name;
-        const result = await fetch(`${link}&q=${query}`);
-        const data = await result.json();
+// const fetchData = async () => {
+//     try {
+//         const query = localStorage.getItem('query') || store.name;
+//         const result = await fetch(`${link}&q=${query}`);
+//         const data = await result.json();
+//         console.log(data);
 
-        const { 
-          current: { 
-            all, 
-            temp, 
-            humidity,
-            dt: dt, 
-            pressure, 
-            visibility, 
-            is_day: isDay, 
-            description: description,
-            wind_speed: speed,
-        }, 
-        location: { name },
-    } = data;
+//         const { 
+//           current: { 
 
-    store = {
-        ...store,
-        name: name,
-        temp,
-        dt,
-        isDay,
-        description: description[0],
-        properties: {
-          all: {
-              title: "Сloudcover",
-              value: `${all}%`,
-              icon: "cloud.png",
-            },
-            humidity: {
-              title: "Humidity",
-              value: `${humidity}%`,
-              icon: "humidity.png",
-            },
-            speed: {
-              title: "wind speed",
-              value: `${speed} kmph`,
-              icon: "wind.png",
-            },
-            pressure: {
-              title: "pressure",
-              value: `${pressure} mb`,
-              icon: "gauge.png",
-            },
-            visibility: {
-              title: "visibility",
-              value: `${visibility}m`,
-              icon: "visibility.png",
-            },
-        },
-    };
+//             is_day: isDay, 
+//             description: description,
 
-    renderComponent();
-    } catch(err) {
-        console.log(err);
-      }
-};
+//         }, 
 
-const getImage = (description) => {
-    const value = description.toLowerCase();
-  
-    switch (value) {
-      case "partly cloudy":
-        return "partly.png";
-      case "cloud":
-        return "cloud.png";
-      case "fog":
-        return "fog.png";
-      case "sunny":
-        return "sunny.png";
-      case "cloud":
-        return "cloud.png";
-      default:
-        return "the.png";
-    }
-  };
+//     } = data;
 
-const renderProperty = (properties) => {
-    return Object.values(properties).map((data) => {
-        const {title, value, icon} = data;
+//     store = {
+//         ...store,
 
-        return })
-};
+//         isDay,
+//         description: description[0],
+       
+//     };
+
+//     renderComponentfavorite();
+//     } catch(err) {
+//         console.log(err);
+//       }
+// };
 
 const markup = () => {
-    const {name, description, dt, temp, isDay, properties, sunset, sunrise } = store;
-    const containerClass = isDay === "yes" ? "is-day" : "is-night";
+    const {name, description, temp, isDay, sunset, sunrise } = store;
+    const containerClass = isDay === "d" ? "is-day" : "is-night";
 
     return `<div class="container ${containerClass}">
                 <div class="top">
@@ -205,7 +173,8 @@ const markup = () => {
                 </div>
                 <div class="city-info">
                     <div class="top-left">
-                    <img class="icon" src="./img/${getImage(description)}" alt="" />
+                    <div class="icon">
+                    </div>
                     <div class="description">${description}</div>
                 </div>
                 
@@ -222,7 +191,7 @@ const togglePopupfavoriteClass = () => {
   popupfavorite.classList.toggle("active");
   };
 
-const renderComponent = () => {
+const renderComponentfavorite = () => {
     root.innerHTML = markup();
 
 popupfavoriteClose.addEventListener('click', () => {     
@@ -247,6 +216,7 @@ const handleSubmit = (e) => {
     if(!value) return null;
 
     localStorage.setItem('query', value);
+    weatherRequest(value);
     fetchData();
     togglePopupfavoriteClass();
 };
@@ -255,7 +225,7 @@ const togglePopupactualClass = () => {
   popupactual.classList.toggle("active");
   };
 
-const renderComponent1 = () => {
+const renderComponentSettings = () => {
     root.innerHTML = markup();
 
 popupactualClose.addEventListener('click', () => {     
@@ -270,6 +240,23 @@ form.addEventListener('submit', handleSubmit);
 
 textInput.addEventListener('input', handleInput);
 
-fetchData();
-renderComponent();
-renderComponent1();
+
+
+
+const fetchData = async () => {
+  try {
+      const query = localStorage.getItem('query') || store.name;
+      const result = await fetch(`${apilink}q=${query}`);
+      const data = await result.json();
+      console.log(data);
+
+  renderComponentfavorite();
+  } catch(err) {
+      console.log(err);
+    }
+};
+
+// fetchData();
+renderComponentfavorite();
+renderComponentSettings();
+weatherRequest(localStorage.getItem('query') || 'Minsk'); 

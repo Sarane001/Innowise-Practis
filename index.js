@@ -1,3 +1,5 @@
+import css from "./style.css";
+
 const apilink = 'https://api.openweathermap.org/data/2.5/weather?appid=02c241e5f5c19e653240d087fd657644&';
 const apilinkweek = "https://api.openweathermap.org/data/2.5/forecast?appid=02c241e5f5c19e653240d087fd657644&";
 
